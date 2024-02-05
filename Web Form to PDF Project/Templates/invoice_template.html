@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+<body>
+    <h1>Invoice</h1>
+    <p>Invoice Number: {{ data['invoice_number'] }}</p>
+    <!-- Add more fields as needed -->
+
+    <!-- You can also use loops for items, etc. -->
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ data['description'] }}</td>
+                <td>{{ data['quantity'] }}</td>
+                <td>{{ data['unit_price'] }}</td>
+                <td>{{ data['total_price'] }}</td>
+            </tr>
+            <!-- Add more rows if needed -->
+        </tbody>
+    </table>
+
+    <!-- Add more HTML structure as needed -->
+
+</body>
+</html>

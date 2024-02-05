@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Invoice Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-right: 5px;
+            margin-left: 5px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            height: 180vh;
+            color : black;
+
+        }
+
+        form {
+
+            background-size: cover; /* Adjust to cover the entire form */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 20px;
+            box-sizing: border-box;
+            background-color: #d4dff6;
+
+        }
+
+
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Make the table width 100% */
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+        }
+
+        tr{
+          border: 1px solid black;
+        }
+        td,th {
+           /* border: 1px solid black;*/ /* Set border color */
+            padding: 8px;
+            text-align: left;
+        }
+
+
+		
+       /* Default button style */
+        button[type="submit"] {
+            background: linear-gradient(to right, #1abf53, #198dda); /* Blue color scheme */
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        /* Hover effect */
+        button[type="submit"]:hover {
+            background: linear-gradient(to right, #27ae60, #219653);
+        }
+
+        /* Media query for responsiveness */
+        @media screen and (max-width: 600px) {
+            button[type="submit"] {
+                width: 100%; /* Make the button full width on small screens */
+            }
+        }
+
+
+		input:hover, select:hover, textarea:hover {
+            border-color: #45a049;
+            box-shadow: 0 0 5px rgba(69, 160, 73, 0.5);
+            background-color: #eee5e5;
+        }
+
+		td.left-align {
+            padding-right: 20px;
+            text-align: right;
+        }
+
+		.middle-line {
+            border: 2px solid #7b6c6c; /* Set the border style, width, and color */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        /*.background-image {
+            background-image: url("{{ url_for('static', filename='images/gifwallpaper3.webp') }}");
+            height: 175vh;
+            background-repeat: no-repeat;
+            width: 100%;
+            background-size: cover;
+        }*/
+
+        .h2{
+            font-family: 'Poppins', sans-serif;
+            font-size: 30px;
+            background-image: linear-gradient(43deg, #050410 3%, #06129e 100%, #4894ea 55%);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+       /* First Table Styles */
+        .first-table {
+            border-collapse: collapse;
+            padding: 8px;
+            width: 20%;
+             height: 300px;
+        }
+
+        .first-table th,
+        .first-table td {
+            padding: 8px;
+            text-align: left;
+        }
+
+         .first-table textarea {
+            width: calc(100% - 16px); /* Adjust width to fill the container */
+            margin: 4px;
+            box-sizing: border-box;
+            resize: none;
+            height: 66px;
+        }
+
+        /* All rows have a border */
+        .first-table th,
+        .first-table td {
+            border: 1px solid black;
+        }
+
+        /* Alternate rows have a top border */
+        .first-table tr:nth-child(odd) th,
+        .first-table tr:nth-child(odd) td {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Second Table Styles */
+        .second-table {
+            height: 250px;
+            background-color: #f0f0f0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .second-table th,
+        .second-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .second-table th {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .second-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+
+        .second-table input[type="text"],
+        .second-table input[type="number"] {
+            width: 100%; /* Modified to occupy the full width */
+            height: 100%; /* Set the height for all elements in the second row */
+            margin: 8px;
+            margin-left:0px;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        /* Invisible Border for Rows 3 to 5 and Columns 1 to 3 */
+        .second-table tr:nth-child(n+3):nth-child(-n+5) {
+            border: 1px solid #ddd;
+            /*background-color: #350bce;*/
+        }
+
+        .second-table tr:nth-child(2) {
+            border: 1px solid #ddd;
+            /* Make border visible for the second row */
+            height: 100px;
+        }
+
+        .second-table td:nth-child(n+1):nth-child(-n+3) {
+            border: 1px solid transparent;
+        }
+
+        /* Third Table Styles */
+        .third-table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-left: 225px;
+            margin-top: -392px;
+
+        }
+
+        .third-table th,
+        .third-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .third-table th {
+
+            color: black;
+        }
+
+        .third-table td:hover {
+            background-color: #f5f5f5;
+        }
+
+        .third-table input[type="text"],
+        .third-table input[type="date"] {
+            width: calc(100% - 16px); /* Adjust width to fill the container */
+            margin: 8px;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        .third-table textarea {
+            width: calc(100% - 16px); /* Adjust width to fill the container */
+            margin: 4px;
+            box-sizing: border-box;
+            resize: none;
+            height: 45px;
+        }
+
+        .third-table td[colspan="3"] {
+            /* Style for the colspan="3" cell */
+            padding-top: 10px; /* Add some padding at the top for better visual */
+        }
+
+        .third-table td[colspan="3"] input[type="checkbox"] {
+            /* Adjust styles for checkboxes in the colspan="3" cell */
+            width: 20px;
+            height: 20px;
+        }
+
+        .third-table td[colspan="3"] input[type="checkbox"]:first-child {
+            margin-right: 20px; /* Add margin between checkboxes */
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <form class="background-image" action="{{ url_for('submit') }}" method="post">
+        <div class="middle-line">
+             <h2 class="h2">Commercial Invoice Form</h2>
+
+        <table>
+			<tr>
+                <th><label for="full-name">Full Name:</label></th>
+                <td><input type="text" id="full-name" name="full-name" required></td>
+                <th><label for="address">Address:</label></th>
+                <td><input type="text" id="address" name="address" required></td>
+                <th><label for="business-number">Business Number:</label></th>
+                <td><input type="text" id="business-number" name="business-number" required></td>
+            </tr>
+	    </table>
+
+
+    <table class="first-table">
+        <tr>
+            <th colspan="2">Shipper/Exporter Details</th>
+        </tr>
+        <tr rowspan="2">
+            <td ><textarea id="text" name="shipper_exporter" rows="3" required></textarea></td>
+        </tr>
+        <tr>
+            <th colspan="2">Consignee Details</th>
+        </tr>
+        <tr>
+            <td><textarea id="consignee" name="consignee" rows="3" required></textarea></td>
+        </tr>
+        <tr>
+            <th colspan="2">Notify Party Details</th>
+        </tr>
+        <tr>
+			 <td><textarea id="notify_Party" name="notify_Party" rows="3" required></textarea></td>
+        </tr>
+    </table>
+
+        <table class="third-table" >
+            <tr>
+				<th><label for="date">Date:</label></th>
+                <td><input type="date" id="date" name="date" required></td>
+                <th><label for="invoiceNumber">Commercial Invoice No.:</label></th>
+                <td><input type="text" id="invoiceNumber" name="invoiceNumber" required></td>
+            </tr>
+
+            <tr>
+                <th><label for="customerPONumber">Customer P.O. Number:</label></th>
+                <td><input type="text" id="customerPONumber" name="customerPONumber" required></td>
+				<th><label for="dateOfExport">Date of Export:</label></th>
+                <td><input type="date" id="dateOfExport" name="dateOfExport" required></td>
+            </tr>
+			
+            <tr>
+                <th><label for="countryOfOrigin">Country of Origin:</label></th>
+                <td><input type="text" id="countryOfOrigin" name="countryOfOrigin" required></td>
+				<th><label for="blAwbNumber">B/L / AWB Number:</label></th>
+                <td><input type="text" id="blAwbNumber" name="blAwbNumber" required></td>
+            </tr>
+
+            <tr>
+                <th><label for="finalDestination">Final Destination:</label></th>
+                <td><input type="text" id="finalDestination" name="finalDestination" required></td>
+                <th><label for="exportRouteCarrier">Export Route / Carrier:</label></th>
+                <td><input type="text" id="exportRouteCarrier" name="exportRouteCarrier" required></td>
+            </tr>
+			
+            <tr>
+				<th><label for="termsOfSale">Terms of Sale:</label></th>
+                <td><input type="text" id="termsOfSale" name="termsOfSale" required></td>
+                <th><label for="termsOfPayment">Terms of Payment:</label></th>
+                <td><input type="text" id="termsOfPayment" name="termsOfPayment" required></td>
+            </tr>
+			
+            <tr>
+                <th><label for="freight">Freight:</label></th>
+                <td colspan="3">
+                    <input type="checkbox" name="freight" value="prepaid" style="width: 20px;height: 20px"> Prepaid
+                    <input type="checkbox" name="freight" value="collect" style="width: 20px;margin-left:20px;height: 20px;margin-left: 80px;"> Collect
+                </td>
+            </tr>
+            <tr>
+                <th><label for="marks">Marks:</label></th>
+                <td colspan="3"><textarea id="description" name="marks" rows="3" required></textarea></td>
+            </tr>
+			
+			</table>
+            <table class="second-table">
+                <div class="middle-line">
+            <tr>
+                <th><label for="quantity">Quantity:</label></th>
+                <th><label for="description">Description:</label></th>
+                <th><label for="hsNumber">H.S. Number:</label></th>
+                <th><label for="unitPrice">Unit Price:</label></th>
+                <th><label for="totalPrice">Total Price U.S.$'S:</label></th>
+            </tr>
+            <tr>
+                <td><input type="number" id="quantity" name="quantity" required></td>
+                <td><input type="text" id="description" name="description" required></td>
+                <td><input type="text" id="hsNumber" name="hsNumber" required></td>
+                <td><input type="text" id="unitPrice" name="unitPrice" required></td>
+                <td><input type="text" id="totalPrice" name="totalPrice" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <th><label for="subtotal">Subtotal:</label></th>
+                <td ><input type="text" id="subtotal" name="subtotal" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+				<th><label for="handling">Handling:</label></th>
+                <td><input type="text" id="handling" name="handling" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+				<th><label for="total">Total:</label></th>
+                <td><input type="text" id="total" name="total" required></td>
+            </tr>
+             <tr>
+                <td colspan="3">
+                    <label for="exportedFrom">We hereby certify thi invoice to be true and correct:</label>
+                    <textarea id="certification" name="certification" rows="3" style="width: calc(100% - 16px); margin: 8px; box-sizing: border-box; resize: none;" required></textarea>
+                    <br>
+                    <label for="exportedFrom">These commodities, technology or software were exported from the united states to:</label>
+                    <br>
+                    <textarea id="exportedTo" name="exportedTo" rows="3" style="width: calc(100% - 16px); margin: 8px; box-sizing: border-box; resize: none;" required></textarea>
+
+                </td>
+            </tr>
+                </div>
+        </table>
+        </div>
+        <button type="submit">Submit Invoice</button>
+
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Invoices</title>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Background color for the entire page */
+        }
+
+         #searchContainer {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #searchInput, #searchSelect {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+        h1 {
+            text-align: center;
+            color: #333; /* Header color */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff; /* Table background color */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Border color between rows */
+        }
+
+        th {
+            background-color: #3498db; /* Header background color */
+            color: #fff; /* Header text color */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Alternate row background color */
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .page-link {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .page-link:hover {
+            background-color: #f9f9f9;
+        }
+
+        .active {
+            background-color: #3498db;
+            color: #fff;
+        }
+    </style>
+
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to handle search/filter
+            function filterTable() {
+                var input, filter, table, tr, td, i, txtValue, select, selectedIndex;
+                input = document.getElementById("searchInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("invoiceTable");
+                tr = table.getElementsByTagName("tr");
+                select = document.getElementById("searchSelect");
+                selectedIndex = select.selectedIndex;
+
+                // Loop through all table rows, and hide those that don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[selectedIndex];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+            // Function to handle pagination
+            function setupPagination(totalPages) {
+                const paginationContainer = document.getElementById("pagination");
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageLink = document.createElement("a");
+                    pageLink.href = "#";
+                    pageLink.classList.add("page-link");
+                    pageLink.textContent = i;
+
+                    pageLink.addEventListener("click", function () {
+                        showPage(i);
+                    });
+
+                    paginationContainer.appendChild(pageLink);
+                }
+
+                showPage(1); // Show the first page initially
+            }
+
+            function showPage(pageNumber) {
+                const recordsPerPage = 10; // Change this to the desired number of records per page
+                const start = (pageNumber - 1) * recordsPerPage;
+                const end = start + recordsPerPage;
+                const tableRows = document.getElementById("invoiceTable").getElementsByTagName("tr");
+
+                for (let i = 1; i < tableRows.length; i++) {
+                    if (i >= start && i < end) {
+                        tableRows[i].style.display = "";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+
+                // Update the active state of the pagination links
+                const pageLinks = document.querySelectorAll(".page-link");
+                pageLinks.forEach(link => link.classList.remove("active"));
+                pageLinks[pageNumber - 1].classList.add("active");
+            }
+
+            // Assuming records is an array of records
+            const totalRecords = {{ records.length }};
+            const totalPages = Math.ceil(totalRecords / 10); // Change this to the desired number of records per page
+
+            setupPagination(totalPages);
+
+            // Attach the filter function to the input field's "input" event
+            document.getElementById("searchInput").addEventListener("input", filterTable);
+        });
+    </script>
+
+
+
+
+
+
+
+</head>
+<body>
+    <h1>View Invoices</h1>
+
+     <div id="searchContainer">
+        <!-- Search bar -->
+        <input type="text" id="searchInput" placeholder="Search">
+
+    <!-- Add a dropdown to choose the column -->
+    <select id="searchSelect">
+        <option value="1">Full Name</option>
+        <option value="2">Address</option>
+        <option value="3">Business Number</option>
+          <!-- <option value="3">Invoice Number</option>
+        <option value="4">Customer PO Number</option>-->
+        <!-- Add options for other columns as needed -->
+    </select>
+     </div>
+
+    {% if records %}
+        <table border="1" id="invoiceTable">
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>Business Number</th>
+                <th>Shipper Exporter</th>
+                <th>Date</th>
+                <th>Invoice Number</th>
+                <th>Consignee</th>
+                <th>Customer PO Number</th>
+                <th>Date of Export</th>
+                <th>Notify Party</th>
+                <th>Country of Origin</th>
+                <th>BL AWB Number</th>
+                <th>Marks</th>
+                <th>Final Destination</th>
+                <th>Export Route Carrier</th>
+                <th>Terms of Sale</th>
+                <th>Terms of Payment</th>
+                <th>Freight Prepaid</th>
+                <th>Freight Collect</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>HS Number</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th>Subtotal</th>
+                <th>Handling</th>
+                <th>Total</th>
+            </tr>
+
+            {% for record in records %}
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td>{{ record[1] }}</td>
+                    <td>{{ record[2] }}</td>
+                    <td>{{ record[3] }}</td>
+                    <td>{{ record[4] }}</td>
+                    <td>{{ record[5] }}</td>
+                    <td>{{ record[6] }}</td>
+                    <td>{{ record[7] }}</td>
+                    <td>{{ record[8] }}</td>
+                    <td>{{ record[9] }}</td>
+                    <td>{{ record[10] }}</td>
+                    <td>{{ record[11] }}</td>
+                    <td>{{ record[12] }}</td>
+                    <td>{{ record[13] }}</td>
+                    <td>{{ record[14] }}</td>
+                    <td>{{ record[15] }}</td>
+                    <td>{{ record[16] }}</td>
+                    <td>{{ record[17] }}</td>
+                    <td>{{ record[18] }}</td>
+                    <td>{{ record[19] }}</td>
+                    <td>{{ record[20] }}</td>
+                    <td>{{ record[21] }}</td>
+                    <td>{{ record[22] }}</td>
+                    <td>{{ record[23] }}</td>
+                    <td>{{ record[24] }}</td>
+                    <td>{{ record[25] }}</td>
+                    <td>{{ record[26] }}</td>
+                    <td>{{ record[27] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    <div class="pagination" id="pagination"></div>
+    {% else %}
+        <p>No records found.</p>
+    {% endif %}
+</body>
+</html>
